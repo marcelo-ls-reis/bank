@@ -1,18 +1,59 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp( // runApp é um método que recebe um Widget e o exibe na tela
-      MaterialApp( // MaterialApp é um Widget que configura o tema do app
-        home: Scaffold( // Scaffold é um Widget que configura a estrutura básica de uma tela
-        body: const Card( color: Colors.blue,
-          child: Text("Teste de card"),
-        ),
-          appBar: AppBar( // AppBar é um Widget que configura a barra superior da tela
-            title: const Text('Tranferências'), // Text é um Widget que exibe um texto
+void main() => runApp(
+      MaterialApp(
+        home: Scaffold(
+          body: ListaTransferencias(),
+          appBar: AppBar(
+            title: Text("Transferências"),
           ),
-          floatingActionButton: FloatingActionButton( // FloatingActionButton é um Widget que configura um botão flutuante
-            onPressed: () {}, // onPressed é um parâmetro que recebe uma função que será executada quando o botão for pressionado
-            child: const Icon(Icons.add), // Icon é um Widget que exibe um ícone
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
           ),
         ),
-      )
+      ),
     );
+
+//
+class ListaTransferencias extends StatelessWidget {
+  // StatelessWidget é um widget que não muda
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: [
+        // Lista de widgets
+        ItemTransferencia(Transferencia(100.00, 1234)),
+        ItemTransferencia(Transferencia(200.00, 1235)),
+        ItemTransferencia(Transferencia(300.00, 1236)),
+      ],
+    );
+  }
+}
+
+class ItemTransferencia extends StatelessWidget { 
+  final Transferencia _transferencia;
+  ItemTransferencia(this._transferencia);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(
+          Icons.monetization_on,
+          color: Colors.green,
+        ),
+        title: Text(_transferencia.valor.toString()),
+        subtitle: Text(_transferencia.numeroConta.toString()),
+      ),
+    );
+  }
+}
+
+class Transferencia { 
+  final double valor;
+  final int numeroConta;
+
+  Transferencia(this.valor, this.numeroConta); 
+}
